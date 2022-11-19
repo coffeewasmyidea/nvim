@@ -1,6 +1,5 @@
 require("coffeewasmyidea")
 
-vim.opt.termguicolors = true
 vim.opt.nu = false
 vim.opt.mouse = ""
 vim.opt.wrap = false
@@ -33,8 +32,12 @@ vim.opt.foldlevelstart = 10
 vim.opt.foldnestmax = 10
 vim.opt.ruler = true
 vim.opt.laststatus = 0
-vim.opt.completeopt = ""
+vim.opt.completeopt = { "menu", "preview" }
 vim.opt.list = true
+
+-- Global variables
+vim.g.syntax = true
+vim.g.indent = true
 
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<leader>t"
@@ -58,6 +61,30 @@ require('vscode').setup({
         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
     }
 })
+
+--  vim.keymap.set("n", "<C-b>", ":let &bg=(&bg=='light'?'dark':'light')<CR>")
+
+-- vim.o.background = "dark"
+-- vim.opt.termguicolors = true
+-- vim.cmd([[colorscheme gruvbox]])
+
+-- require("gruvbox").setup({
+--   undercurl = true,
+--   underline = true,
+--   bold = false,
+--   italic = false,
+--   strikethrough = true,
+--   invert_selection = false,
+--   invert_signs = false,
+--   invert_tabline = false,
+--   invert_intend_guides = false,
+--   inverse = true, -- invert background for search, diffs, statuslines and errors
+--   contrast = "", -- can be "hard", "soft" or empty string
+--   palette_overrides = {},
+--   overrides = {},
+--   dim_inactive = false,
+--   transparent_mode = true,
+-- })
 
 require("bufferline").setup{
     options = {
@@ -347,6 +374,7 @@ require("diffview").setup({
     },
 })
 
+if vim.g.vscode == '' then
 -- tree-sitter
 require 'nvim-treesitter.configs'.setup {
     ensure_installed = { "python", "c", "cpp", "rust", "go", "html", "css", "lua", "sql" },
@@ -359,6 +387,7 @@ require 'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
     },
 }
+end
 
 -- autopairs
 require('nvim-autopairs').setup({

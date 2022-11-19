@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/ssv/.local/share/nvim/site/pack/packer/start/fzf.vim",
     url = "https://github.com/junegunn/fzf.vim"
   },
+  ["gruvbox.nvim"] = {
+    loaded = true,
+    path = "/home/ssv/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
+    url = "https://github.com/ellisonleao/gruvbox.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/ssv/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -164,11 +169,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/ssv/.local/share/nvim/site/pack/packer/start/vim-gitgutter",
     url = "https://github.com/airblade/vim-gitgutter"
-  },
-  ["vscode.nvim"] = {
-    loaded = true,
-    path = "/home/ssv/.local/share/nvim/site/pack/packer/start/vscode.nvim",
-    url = "https://github.com/Mofiqul/vscode.nvim"
   }
 }
 
