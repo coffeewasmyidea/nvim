@@ -58,7 +58,7 @@ vim.o.background = "dark"
 
 local c = require("vscode.colors")
 require("vscode").setup({
-    transparent = true,
+    transparent = false,
     italic_comments = true,
     disable_nvimtree_bg = true,
     group_overrides = {
@@ -137,16 +137,18 @@ lsp.setup()
 vim.diagnostic.config({ virtual_text = true, })
 
 -- python
-vim.g.python3_host_prog = "/usr/bin/python"
-vim.g.black_linelength = 120
+vim.g.python3_host_prog = "/usr/bin/python3"
+vim.g.black_linelength = 80
 
 -- F keys
 vim.keymap.set("n", "<F3>", ":set rnu! nu!<CR>")
 vim.keymap.set("n", "<F8>", ":TagbarToggle<CR>")
 
--- fzf
-vim.keymap.set("n", "<C-p>", ":FZF<CR>")
-vim.keymap.set("n", "<C-f>", ":Rg<CR>")
+-- search
+require('telescope').setup{ pickers = { find_files = { disable_devicons = true }, live_grep = { disable_devicons = true }, }}
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
+vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 
 -- resize
 vim.keymap.set("n", "<M-Up>", ":resize -4<CR>")
@@ -207,16 +209,39 @@ vim.keymap.set("n", "<leader>S", vim.cmd.Hexplore)
 vim.keymap.set("n", "<leader>T", vim.cmd.Texplore)
 
 if vim.g.vscode == "" then
--- tree-sitter
-require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "help", "python", "c", "rust", "go", "lua", "sql" },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
+    -- tree-sitter
+    require'nvim-treesitter.configs'.setup {
+      ensure_installed = { "help", "python", "c", "rust", "go", "lua", "sql" },
+      sync_install = false,
+      auto_install = true,
+
+      -- List of parsers to ignore installing (for "all")
+      ignore_install = { "javascript" },
+
+      highlight = {
         enable = true,
+
+        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+        -- the name of the parser)
+        -- list of language that will be disabled
+        disable = { "c", "rust" },
+        -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+        disable = function(lang, buf)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                return true
+            end
+        end,
+
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
-    },
-}
+      },
+    }
 end
 
 -- autopairs
