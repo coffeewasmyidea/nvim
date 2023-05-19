@@ -14,7 +14,7 @@ end
 return require("packer").startup(function()
     use("wbthomason/packer.nvim")
 
-    -- lsp
+    -- LSP
     use {
         "VonHeikemen/lsp-zero.nvim",
         requires = {
@@ -38,57 +38,49 @@ return require("packer").startup(function()
     }
     use("nvim-lua/plenary.nvim")
 
-    -- snips
+    -- Snips
     use("sirver/UltiSnips")
 
-    -- git
+    -- Git
     use("airblade/vim-gitgutter")
     use("tpope/vim-fugitive")
+
+    -- treesitter
+    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+    -- use("nvim-treesitter/playground")
+    -- use("romgrk/nvim-treesitter-context")
 
     -- Go
     use("ray-x/go.nvim")
 
-    -- rust
-    use("rust-lang/rust.vim")
-
-    -- comments
-    use("tpope/vim-commentary")
-
-    -- serach
-    use { "nvim-telescope/telescope.nvim", requires = { {"nvim-lua/plenary.nvim"} } }
-
-    -- treesitter
-    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-    use("nvim-treesitter/playground")
-    use("romgrk/nvim-treesitter-context")
-
-    -- colorschemes
-    use("Mofiqul/vscode.nvim")
-    use("ellisonleao/gruvbox.nvim")
-
-    -- bufferline
-    use {"akinsho/bufferline.nvim", tag = "v3.*", requires = "kyazdani42/nvim-web-devicons"}
-
-    -- autopairs
-    use {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end}
-
-    -- guihua
+    -- Guihua
     use {"ray-x/guihua.lua", run = "cd lua/fzy && make"}
 
-    -- dap
+    -- Rust
+    use("rust-lang/rust.vim")
+
+    -- Comments
+    use("tpope/vim-commentary")
+
+    -- Serach
+    use { "nvim-telescope/telescope.nvim", requires = { {"nvim-lua/plenary.nvim"} } }
+
+    -- Autopairs
+    use {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end}
+
+    -- Dap
     use("mfussenegger/nvim-dap")
     use("theHamsta/nvim-dap-virtual-text")
     use("mfussenegger/nvim-dap-python")
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
 
-    -- others
+    -- Others
     use("psf/black")
     use("preservim/tagbar")
     use("onsails/lspkind-nvim")
     use("theprimeagen/harpoon")
     use("mbbill/undotree")
     use("folke/zen-mode.nvim")
-    -- use("github/copilot.vim")
     use("williamboman/mason.nvim")
 
     -- Automatically set up your configuration after cloning packer.nvim

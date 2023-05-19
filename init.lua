@@ -1,43 +1,19 @@
 require("coffeewasmyidea")
 
-vim.opt.termguicolors = true
-vim.opt.guicursor = ""
-vim.opt.nu = false
 vim.opt.mouse = ""
-vim.opt.wrap = false
-vim.opt.textwidth = 0
-vim.opt.smartindent = true
-vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.cmdheight = 1
-vim.opt.isfname:append("@-@")
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.ruler = true
+vim.opt.showmode = true
+vim.opt.autoindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
 vim.opt.undofile = true
-vim.opt.updatetime = 50
-vim.opt.autochdir = false
-vim.opt.backspace = {"indent", "eol" ,"start" }
-vim.opt.smd = false
-vim.opt.hidden = true
-vim.opt.previewwindow = false
-vim.opt.spell = false
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.wildmenu = true
-vim.opt.wildmode = "full"
-vim.opt.foldmethod = "indent"
-vim.opt.foldenable = true
-vim.opt.foldlevelstart = 10
-vim.opt.foldnestmax = 10
-vim.opt.ruler = true
-vim.opt.list = true
 
 -- Statusline
 vim.cmd("set statusline=%<%f\\ %h%m%r%=%-16.(%y\\ %l,%c\\ %)\\ %P\\ \\ ")
@@ -49,37 +25,20 @@ vim.g.indent = true
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<leader>t"
 
--- better Netrw
+-- Better Netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
 vim.g.netrw_altv = 1
 vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 
--- background
-vim.o.background = "dark"
+vim.cmd("colorscheme desert")
 
-local c = require("vscode.colors").get_colors()
-require("vscode").setup({
-    transparent = true,
-    italic_comments = true,
-    disable_nvimtree_bg = true,
-    -- Override colors (see ./lua/vscode/colors.lua)
-    -- color_overrides = {
-    --     vscLineNumber = "#FFFFFF",
-    -- },
-    group_overrides = {
-        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
-    }
-})
-require("vscode").load("dark")
-
--- copy/paste
+-- Copy/paste
 vim.opt.clipboard = "unnamedplus"
 
--- lsp config
+-- LSP config
 local lsp = require("lsp-zero").preset({})
--- lsp.preset("recommended")
 
 lsp.ensure_installed({
     "tsserver",
@@ -90,6 +49,16 @@ lsp.ensure_installed({
     "gopls",
     "sqlls",
     "dockerls",
+    "ansiblels",
+    "awk_ls",
+    "bashls",
+    "cmake",
+    "docker_compose_language_service",
+    "helm_ls",
+    "jsonls",
+    "lua_ls",
+    "terraformls",
+    "yamlls",
 })
 
 local cmp = require("cmp")
@@ -98,7 +67,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
   ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
   ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-  ["<CR>"] = cmp.mapping.confirm({ select = true }, {"i", "s", "c" }),
+  ["<CR>"] = cmp.mapping.confirm({ select = false}, {"i", "s", "c" }),
 })
 
 lsp.setup_nvim_cmp({
@@ -143,47 +112,50 @@ lsp.setup()
 
 vim.diagnostic.config({ virtual_text = true, })
 
--- python
-vim.g.python3_host_prog = "/usr/bin/python3"
+-- Python
+vim.g.python3_host_prog = "/bin/python"
 vim.g.black_linelength = 80
 
 -- F keys
--- vim.keymap.set("n", "<F3>", ":set rnu! nu!<CR>")
-vim.keymap.set("n", "<F3>", ":set nu!<CR>")
+vim.keymap.set("n", "<F3>", ":set rnu! nu!<CR>")
+-- vim.keymap.set("n", "<F3>", ":set nu!<CR>")
 vim.keymap.set("n", "<F8>", ":TagbarToggle<CR>")
 
--- search
-require("telescope").setup{ pickers = { find_files = { disable_devicons = true }, live_grep = { disable_devicons = true }, }}
+-- Search
+require("telescope").setup{
+pickers = {
+    find_files = {
+        disable_devicons = true },
+        live_grep = { disable_devicons = true },
+    }
+}
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<C-f>", builtin.live_grep, {})
 vim.keymap.set("n", "<C-p>", builtin.find_files, {})
 
--- resize
+-- Resize
 vim.keymap.set("n", "<M-Up>", ":resize -4<CR>")
 vim.keymap.set("n", "<M-Down>", ":resize +4<CR>")
 vim.keymap.set("n", "<M-Right>", ":vertical resize +4<CR>")
 vim.keymap.set("n", "<M-Left>", ":vertical resize -4<CR>")
 
--- move
+-- Move
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- join with cursor stay in place
+-- Join with cursor stay in place
 vim.keymap.set("n", "J", "mzJ`z")
 
--- search with cursor stay in the middle
+-- Search with cursor stay in the middle
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
--- chmod +x
+-- Chmod +x
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- navigate 4x faster when holding down Ctrl
+-- Navigate 4x faster when holding down Ctrl
 vim.keymap.set("n", "<C-j>", "4j")
 vim.keymap.set("n", "<C-k>", "4k")
 vim.keymap.set("n", "<C-l>", "4l")
@@ -193,7 +165,7 @@ vim.keymap.set("n", "<C-Up>", "4<Up>")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "e")
 
--- for visual mode: x[nore]map
+-- For visual mode: x[nore]map
 vim.keymap.set("x", "<C-j>", "4j")
 vim.keymap.set("x", "<C-k>", "4k")
 vim.keymap.set("x", "<C-h>", "4h")
@@ -203,77 +175,38 @@ vim.keymap.set("x", "<C-Up>", "4<Up>")
 vim.keymap.set("x", "<C-Left>", "b")
 vim.keymap.set("x", "<C-Right>", "e")
 
--- find and replace
+-- Find and replace
 vim.keymap.set("n", "S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- git
+-- Git
 vim.keymap.set("n", "<Leader>b", ":Git blame<CR>")
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
--- explore
+-- Explore
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>s", vim.cmd.Vexplore)
 vim.keymap.set("n", "<leader>S", vim.cmd.Hexplore)
 vim.keymap.set("n", "<leader>T", vim.cmd.Texplore)
 
-if vim.g.vscode == "" then
-    -- tree-sitter
-    require"nvim-treesitter.configs".setup {
-      ensure_installed = { "help", "python", "c", "rust", "go", "lua", "sql" },
-      sync_install = false,
-      auto_install = true,
-
-      -- List of parsers to ignore installing (for "all")
-      ignore_install = { "javascript" },
-
-      highlight = {
-        enable = true,
-
-        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-        -- the name of the parser)
-        -- list of language that will be disabled
-        disable = { "c", "rust" },
-        -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-        disable = function(lang, buf)
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-                return true
-            end
-        end,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on "syntax" being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-      },
-    }
-end
-
--- noh
+-- Noh
 vim.keymap.set("n", "<Leader><space>", ":noh<CR>")
 
--- autopairs
+-- Autopairs
 require("nvim-autopairs").setup({
   disable_filetype = { "vim" },
 })
 
--- undotree
+-- Undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
--- zen
+-- Zen
 require("zen-mode").setup { window = { width = 85, }, }
-
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").toggle()
     vim.cmd.GitGutterToggle()
-    -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-    -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end)
 
--- harpoon
+-- Harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 
@@ -284,7 +217,7 @@ vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
 
--- mason
+-- Mason
 require("mason").setup()
 
 -- Go
@@ -296,7 +229,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
-
 require("go").setup()
-require("dapui").setup()
-require("nvim-dap-virtual-text").setup()

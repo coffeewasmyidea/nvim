@@ -1,10 +1,10 @@
 vim.keymap.set("n", "<F5>", ":Black<CR>")
 vim.keymap.set("n", "<Leader>x", ":!python %<CR>")
-
+vim.opt.wrap = false
 vim.opt.textwidth = 0
 
 require("dap-python").resolve_python = function()
-  return "/usr/bin/python3.10"
+  return "/bin/python"
 end
 
 -- local dap = require("dap")
