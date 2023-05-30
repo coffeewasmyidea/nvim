@@ -1,5 +1,7 @@
 require("coffeewasmyidea")
 
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.mouse = ""
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -33,6 +35,7 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 
 vim.cmd("colorscheme desert")
+vim.cmd("highlight LineNr ctermfg=grey")
 
 -- Copy/paste
 vim.opt.clipboard = "unnamedplus"
@@ -248,20 +251,7 @@ dap.configurations.cpp = {
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
-    args = {},
-
-    -- 💀
-    -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-    --
-    --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-    --
-    -- Otherwise you might get the following error:
-    --
-    --    Error on launch: Failed to attach to the target process
-    --
-    -- But you should be aware of the implications:
-    -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-    -- runInTerminal = false,
+    args = {}
   },
 }
 
@@ -413,3 +403,14 @@ dap.configurations.python = {
     end;
   },
 }
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimport()
+  end,
+  group = format_sync_grp,
+})
+
+require('go').setup()
