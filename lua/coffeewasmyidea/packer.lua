@@ -14,9 +14,6 @@ end
 return require("packer").startup(function()
     use("wbthomason/packer.nvim")
 
-    --Gruvbox
-    use("morhetz/gruvbox")
-
     -- LSP
     use {
         "VonHeikemen/lsp-zero.nvim",
