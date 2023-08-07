@@ -37,6 +37,9 @@ vim.g.netrw_winsize = 25
 vim.cmd("colorscheme desert")
 vim.cmd("highlight LineNr ctermfg=grey")
 
+-- background
+vim.o.background = "dark"
+
 -- Copy/paste
 vim.opt.clipboard = "unnamedplus"
 
@@ -117,7 +120,7 @@ vim.diagnostic.config({ virtual_text = true, })
 
 -- Python
 vim.g.python3_host_prog = "/bin/python"
-vim.g.black_linelength = 80
+vim.g.black_linelength = 100
 
 -- F keys
 vim.keymap.set("n", "<F3>", ":set rnu! nu!<CR>")
@@ -203,7 +206,7 @@ require("nvim-autopairs").setup({
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- Zen
-require("zen-mode").setup { window = { width = 85, }, }
+require("zen-mode").setup { window = { width = 100, }, }
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").toggle()
     vim.cmd.GitGutterToggle()
