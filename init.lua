@@ -1,6 +1,3 @@
--- VSCode extension
-if vim.g.vscode then
-
     -- Navigate 4x faster when holding down Ctrl
     vim.keymap.set("n", "<C-j>", "4j")
     vim.keymap.set("n", "<C-k>", "4k")
@@ -31,7 +28,8 @@ if vim.g.vscode then
     vim.g.python3_host_prog = "/bin/python"
     vim.g.black_linelength = 120
 
-else
+-- VSCode extension
+if not vim.g.vscode then
     -- ordinary Neovim
     require("coffeewasmyidea")
 
@@ -138,10 +136,6 @@ else
 
     vim.diagnostic.config({ virtual_text = true, })
 
-    -- Python
-    vim.g.python3_host_prog = "/bin/python"
-    vim.g.black_linelength = 120
-
     -- F keys
     vim.keymap.set("n", "<F3>", ":set rnu! nu!<CR>")
     -- vim.keymap.set("n", "<F3>", ":set nu!<CR>")
@@ -221,35 +215,12 @@ else
     vim.keymap.set("n", "<C-d>", "<C-d>zz")
     vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
-    -- Join with cursor stay in place
-    vim.keymap.set("n", "J", "mzJ`z")
-
     -- Search with cursor stay in the middle
     vim.keymap.set("n", "n", "nzzzv")
     vim.keymap.set("n", "N", "Nzzzv")
 
     -- Chmod +x
     vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
-    -- Navigate 4x faster when holding down Ctrl
-    vim.keymap.set("n", "<C-j>", "4j")
-    vim.keymap.set("n", "<C-k>", "4k")
-    vim.keymap.set("n", "<C-l>", "4l")
-    vim.keymap.set("n", "<C-h>", "4h")
-    vim.keymap.set("n", "<C-Down>", "4<Down>")
-    vim.keymap.set("n", "<C-Up>", "4<Up>")
-    vim.keymap.set("n", "<C-Left>", "b")
-    vim.keymap.set("n", "<C-Right>", "e")
-
-    -- For visual mode: x[nore]map
-    vim.keymap.set("x", "<C-j>", "4j")
-    vim.keymap.set("x", "<C-k>", "4k")
-    vim.keymap.set("x", "<C-h>", "4h")
-    vim.keymap.set("x", "<C-l>", "4l")
-    vim.keymap.set("x", "<C-Down>", "4<Down>")
-    vim.keymap.set("x", "<C-Up>", "4<Up>")
-    vim.keymap.set("x", "<C-Left>", "b")
-    vim.keymap.set("x", "<C-Right>", "e")
 
     -- Find and replace
     vim.keymap.set("n", "S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
