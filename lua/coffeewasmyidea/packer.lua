@@ -57,7 +57,7 @@ return require("packer").startup(function()
     use {"ray-x/guihua.lua", run = "cd lua/fzy && make"}
 
     -- Rust
-    use("rust-lang/rust.vim")
+    use("simrat39/rust-tools.nvim")
 
     -- Comments
     use("tpope/vim-commentary")
