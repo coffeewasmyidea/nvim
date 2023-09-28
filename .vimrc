@@ -1,6 +1,4 @@
-" -----------------------------------------------------------------------------
-"     - General config for vim -
-" -----------------------------------------------------------------------------
+" general config
 set term=xterm-256color
 set termguicolors
 set cscopeverbose
@@ -62,8 +60,7 @@ au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 au FileType sh setlocal ts=2 sts=2 sw=2 expandtab
 au FileType markdown setlocal ts=4 sts=4 sw=4 expandtab
 
-" set cursorline
-colorscheme desert
+set cursorline
 
 set tags=./.tags;/
 
