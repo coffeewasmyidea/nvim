@@ -24,33 +24,19 @@ set autochdir
 filetype on
 filetype plugin indent on
 
-" global variables
-let g:explore_is_open = 0
-let g:quickfix_is_open = 0
-
-" functions
-function! ToggleExplore()
-    if g:explore_is_open
-        let g:explore_is_open = 0
-        :Rexplore
-    else
-        let g:explore_is_open = 1
-        :Explore
-    endif
-endfunction
-
-function! ToggleQuickfix()
-    if g:quickfix_is_open
-        let g:quickfix_is_open = 0
-        :cclose
-    else
-        let g:quickfix_is_open = 1
-        :copen
-    endif
-endfunction
-
 " highlighting and color
 syntax on
+
+" colorscheme
+colorscheme desert
+
+" Better Netrw
+let g:netrw_banner = 0
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 25
+
 " Exception for C, Go and yaml
 au! BufNewFile,BufReadPost *.{c,h} set filetype=c
 au! BufNewFile,BufReadPost *.{go} set filetype=go
@@ -60,8 +46,6 @@ au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 au FileType sh setlocal ts=2 sts=2 sw=2 expandtab
 au FileType markdown setlocal ts=4 sts=4 sw=4 expandtab
 
-set cursorline
-
 set tags=./.tags;/
 
 " reloads vim
@@ -70,18 +54,8 @@ noremap <silent> <Leader>v :so $MYVIMRC<CR>
 " auto-indent
 noremap <silent> <leader>f gg=G<CR>
 
-" show/hide explorer window
-noremap <silent> <Leader>e :call ToggleExplore()<CR>
-noremap <silent> <Leader>q :call ToggleQuickfix()<CR>
-noremap <silent> <Leader>, :cp<CR>
-noremap <silent> <Leader>. :cn<CR>
-
 " X copy-paste
 set clipboard+=unnamedplus
-command -range Gy :silent :<line1>,<line2>w !xsel -i -b
-cabbrev gy Gy
-command -range Gp :silent :r !xsel -o -b
-cabbrev gp Gp
 
 " navigate 4x faster when holding down Ctrl
 nmap <c-j> 4j
@@ -110,11 +84,28 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 nmap S :%s//g<Left><Left>
 
 " on/off relativenumber
-" nmap <F3> :set relativenumber! number!<CR>
 nmap <F3> :set number!<CR>
 
 " trailing whitespace
 nmap <F2> :FixWhitespace<CR>
+
+" Explore
+nnoremap <leader>e :Ex<CR>
+nnoremap <leader>s :Vexplore<CR>
+nnoremap <leader>S :Hexplore<CR>
+nnoremap <leader>T :Texplore<CR>
+
+" Resize
+nnoremap <M-Up> :resize -4<CR>
+nnoremap <M-Down> :resize +4<CR>
+nnoremap <M-Right> :vertical resize +4<CR>
+nnoremap <M-Left> :vertical resize -4<CR>
+
+" py
+nmap <Leader>x :!python %<cr>
+
+" Move
+vnoremap J :m '>+1<CR>gv=gv
 
 " noh
 nmap <Leader><space> :noh<cr>
