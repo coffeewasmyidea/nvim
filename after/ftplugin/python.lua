@@ -1,8 +1,8 @@
 vim.keymap.set("n", "<F5>", ":Black<CR>")
 vim.keymap.set("n", "<Leader>x", ":!python %<CR>")
 vim.opt.wrap = false
-vim.opt.textwidth = 0
-
+-- vim.opt.textwidth = 0
+vim.opt.textwidth=100
 require("dap-python").resolve_python = function()
   return "/bin/python"
 end

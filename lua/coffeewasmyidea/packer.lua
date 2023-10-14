@@ -38,6 +38,9 @@ return require("packer").startup(function()
     }
     use("nvim-lua/plenary.nvim")
 
+    -- Colorscheme
+    use("morhetz/gruvbox")
+
     -- Snips
     use("sirver/UltiSnips")
 

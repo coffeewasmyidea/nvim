@@ -49,6 +49,7 @@ if not vim.g.vscode then
     vim.opt.backup = false
     vim.opt.undodir = os.getenv("HOME") .. "/.cache/nvim/undodir"
     vim.opt.undofile = true
+    vim.opt.colorcolumn = "120"
 
     -- Statusline
     vim.cmd("set statusline=%<%f\\ %h%m%r%=%-16.(%y\\ %l,%c\\ %)\\ %P\\ \\ ")
@@ -67,7 +68,9 @@ if not vim.g.vscode then
     vim.g.netrw_liststyle = 3
     vim.g.netrw_winsize = 25
 
-    vim.cmd[[colorscheme desert]]
+    vim.opt.background = "dark"
+    vim.g.gruvbox_contrast_dark = "soft"
+    vim.cmd[[colorscheme gruvbox]]
 
     -- Copy/paste
     vim.opt.clipboard = "unnamedplus"
