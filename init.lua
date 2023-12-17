@@ -25,8 +25,11 @@
     vim.keymap.set("n", "<Leader><space>", ":noh<CR>")
 
     -- Python
-    vim.g.python3_host_prog = "/bin/python"
+    vim.g.python3_host_prog = "/usr/bin/python"
     vim.g.black_linelength = 120
+
+    -- Perl cpan off
+    vim.g.loaded_perl_provider = 0
 
 -- VSCode extension
 if not vim.g.vscode then
@@ -75,31 +78,46 @@ if not vim.g.vscode then
     -- Copy/paste
     vim.opt.clipboard = "unnamedplus"
 
-    -- LSP config
-    local lsp = require("lsp-zero").preset({})
 
-    lsp.ensure_installed({
-        "tsserver",
-        "clangd",
-        "pyright",
+    -- LSP config
+    local lsp = require("lsp-zero")
+
+    lsp.on_attach(function(client, bufnr)
+      -- see :help lsp-zero-keybindings
+      -- to learn the available actions
+      lsp.default_keymaps({buffer = bufnr})
+    end)
+
+    -- Mason
+    require("mason").setup()
+    require('mason-lspconfig').setup({
+    ensure_installed = {
+        "lua_ls",
         "rust_analyzer",
         "gopls",
-        "bashls",
-        "cmake",
+        "clangd",
+        "pyright"
+        -- "cmake", -- dont work with py3.12 venv 
+    },
+    handlers = {
+        lsp.default_setup,
+        },
     })
 
-    local cmp = require("cmp")
-    local cmp_select = {behavior = cmp.SelectBehavior.Select}
-    local cmp_mappings = lsp.defaults.cmp_mappings({
-      ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-      ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-      ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-      ["<CR>"] = cmp.mapping.confirm({ select = false}, {"i", "s", "c" }),
-    })
+  local cmp = require('cmp')
+  local cmp_action = require('lsp-zero').cmp_action()
+  local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
-    lsp.setup_nvim_cmp({
-      mapping = cmp_mappings
+  cmp.setup({
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp_action.tab_complete(),
+        ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
     })
+  })
 
     lsp.set_preferences({
         suggest_lsp_servers = false,
@@ -113,11 +131,6 @@ if not vim.g.vscode then
 
     lsp.on_attach(function(client, bufnr)
       local opts = {buffer = bufnr, remap = false}
-
-      if client.name == "eslint" then
-          vim.cmd.LspStop("eslint")
-          return
-      end
 
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
@@ -290,9 +303,6 @@ if not vim.g.vscode then
     vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
     vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
     vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
-
-    -- Mason
-    -- require("mason").setup()
 
     -- Dap
     local dap = require("dap")

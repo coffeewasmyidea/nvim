@@ -16,27 +16,25 @@ return require("packer").startup(function()
 
     -- LSP
     use {
-        "VonHeikemen/lsp-zero.nvim",
-        requires = {
-            -- LSP Support
-            {"neovim/nvim-lspconfig"},
-            {"williamboman/mason.nvim"},
-            {"williamboman/mason-lspconfig.nvim"},
+      'VonHeikemen/lsp-zero.nvim',
+      branch = 'v3.x',
+      requires = {
+        --- Uncomment these if you want to manage LSP servers from neovim
+        {'williamboman/mason.nvim'},
+        {'williamboman/mason-lspconfig.nvim'},
 
-            -- Autocompletion
-            {"hrsh7th/nvim-cmp"},
-            {"hrsh7th/cmp-buffer"},
-            {"hrsh7th/cmp-path"},
-            {"saadparwaiz1/cmp_luasnip"},
-            {"hrsh7th/cmp-nvim-lsp"},
-            {"hrsh7th/cmp-nvim-lua"},
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},
+        {'hrsh7th/cmp-nvim-lsp'},
+        {'L3MON4D3/LuaSnip'},
 
-            -- Snippets
-            {"L3MON4D3/LuaSnip"},
-            {"rafamadriz/friendly-snippets"},
-        }
+        -- Snippets
+        {"L3MON4D3/LuaSnip"},
+        {"rafamadriz/friendly-snippets"},
+      }
     }
-    use("nvim-lua/plenary.nvim")
 
     -- Colorscheme
     use("morhetz/gruvbox")
@@ -78,6 +76,7 @@ return require("packer").startup(function()
     use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
 
     -- Others
+    use("nvim-lua/plenary.nvim")
     use("psf/black")
     use("preservim/tagbar")
     use("onsails/lspkind-nvim")
