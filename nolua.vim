@@ -1,7 +1,8 @@
 " ----------------------------------------------------------------------------
 "     NVIM config
 "     Sergey Silaev <hello@8am.dev>
-"     date: 2024-01-28
+"     date: 01-29-2024
+"
 " ----------------------------------------------------------------------------
 
 " Leader
@@ -44,6 +45,9 @@ set colorcolumn=+1
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
+
+" Enable mode keys in RU layout
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
 " Copy/Paste to the system clipboard
 set clipboard=unnamedplus
