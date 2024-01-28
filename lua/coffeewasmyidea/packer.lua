@@ -36,6 +36,9 @@ return require("packer").startup(function()
       }
     }
 
+    -- Mason
+    use("williamboman/mason.nvim")
+
     -- Colorscheme
     use("morhetz/gruvbox")
 
@@ -46,19 +49,11 @@ return require("packer").startup(function()
     use("lewis6991/gitsigns.nvim")
     use("tpope/vim-fugitive")
 
-    -- treesitter
-    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-    -- use("nvim-treesitter/playground")
-    -- use("romgrk/nvim-treesitter-context")
-
     -- Go
     use("ray-x/go.nvim")
 
-    -- Guihua
-    use {"ray-x/guihua.lua", run = "cd lua/fzy && make"}
-
     -- Rust
-    use("simrat39/rust-tools.nvim")
+    -- use("simrat39/rust-tools.nvim")
 
     -- Comments
     use("tpope/vim-commentary")
@@ -69,21 +64,23 @@ return require("packer").startup(function()
     -- Autopairs
     use {"windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end}
 
-    -- Dap
-    use("mfussenegger/nvim-dap")
-    use("theHamsta/nvim-dap-virtual-text")
-    use("mfussenegger/nvim-dap-python")
-    use {"rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+    -- Black (Python)
+    use("psf/black")
+
+    -- Tagbar
+    use("preservim/tagbar")
+   
+    -- Harpoon (The Primagen)
+    use("theprimeagen/harpoon")
+
+    -- Undotree
+    use("mbbill/undotree")
+
+    -- Zen mode
+    use("folke/zen-mode.nvim")
 
     -- Others
-    use("nvim-lua/plenary.nvim")
-    use("psf/black")
-    use("preservim/tagbar")
     use("onsails/lspkind-nvim")
-    use("theprimeagen/harpoon")
-    use("mbbill/undotree")
-    use("folke/zen-mode.nvim")
-    use("williamboman/mason.nvim")
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -1,9 +1,10 @@
-## NVIM
+## Neovim config
 
-A compact nvim configuration that I use every day. Repo can be updating..
+A compact Neovim configuration that I use every day. This is evolving all the
+time.
 
 ```
-NVIM v0.9.4
-Build type: RelWithDebInfo
-LuaJIT 2.1.1692716794
+NVIM v0.9.5
+Build type: Release
+LuaJIT 2.1.1702233742
 ```
