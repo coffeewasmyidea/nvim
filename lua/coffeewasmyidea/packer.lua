@@ -40,7 +40,7 @@ return require("packer").startup(function()
     use("williamboman/mason.nvim")
 
     -- Colorscheme
-    use("morhetz/gruvbox")
+    use {"catppuccin/nvim", as = "catppuccin"}
 
     -- Snips
     use("sirver/UltiSnips")
@@ -69,7 +69,7 @@ return require("packer").startup(function()
 
     -- Tagbar
     use("preservim/tagbar")
-   
+
     -- Harpoon (The Primagen)
     use("theprimeagen/harpoon")
 
@@ -81,6 +81,7 @@ return require("packer").startup(function()
 
     -- Others
     use("onsails/lspkind-nvim")
+    use("nvim-treesitter/nvim-treesitter")
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

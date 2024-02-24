@@ -1,7 +1,7 @@
 " ----------------------------------------------------------------------------
 "     NVIM config
 "     Sergey Silaev <hello@8am.dev>
-"     date: 01-29-2024
+"     date: 02-24-2024
 "
 " ----------------------------------------------------------------------------
 
@@ -14,16 +14,13 @@ syntax on
 
 set nosmd
 set backspace=indent,eol,start
-set colorcolumn=100
 set completeopt = ""
 set expandtab
 set fillchars+=vert:│
 set hidden
 set ignorecase
 set incsearch
-set incsearch
 set mouse=
-set nohlsearch
 set nomodeline
 set nopreviewwindow
 set noswapfile
@@ -39,8 +36,6 @@ set whichwrap=b,s,<,>,h,l,[,]
 set laststatus=2
 set undodir=$HOME/.cache/nvim/undodir
 set undofile
-set list
-set listchars=space:·
 set colorcolumn=+1
 
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -143,3 +138,6 @@ command! RemoveTrailingSpaces call RemoveTrailingSpaces()
 
 " Remove trailing spaces
 nnoremap <F2> :RemoveTrailingSpaces<CR>
+
+" noh
+nmap <Leader><space> :noh<cr>

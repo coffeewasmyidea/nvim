@@ -3,9 +3,12 @@ require("coffeewasmyidea")
 vim.cmd(":so $HOME/.config/nvim/nolua.vim")
 
 -- Color scheme
-vim.opt.background = "dark"
-vim.g.gruvbox_contrast_dark = "soft"
-vim.cmd[[colorscheme gruvbox]]
+require("catppuccin").setup({
+    flavour = "latte", -- latte, frappe, macchiato, mocha
+    transparent_background = true,
+})
+
+vim.cmd.colorscheme "catppuccin-frappe"
 
 -- LSP config
 local lsp = require("lsp-zero")
@@ -25,7 +28,9 @@ ensure_installed = {
     "clangd",
     "pyright",
     "cmake",
+    "marksman",
 },
+automatic_installation = true,
 handlers = {
     lsp.default_setup,
     },
