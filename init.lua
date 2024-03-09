@@ -206,3 +206,6 @@ require("nvim-autopairs").setup({
 
 -- Statusline
 vim.cmd("set statusline=%<%f\\ %h%m%r%=%-16.(%y\\ %l,%c\\ %)\\ %P\\ \\ ")
+
+-- Go
+require("go").setup()

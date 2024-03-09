@@ -1,6 +1,6 @@
 vim.opt.textwidth = 99
 
-vim.opt.nu = true
+-- vim.opt.nu = true
 vim.keymap.set("n", "<F5>", ":RustFmt<CR>")
 vim.keymap.set("n", "<C-b>", ":Cargo build<CR>")
 vim.keymap.set("n", "<Leader>x", ":RustRun<CR>")

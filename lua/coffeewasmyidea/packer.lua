@@ -53,7 +53,7 @@ return require("packer").startup(function()
     use("ray-x/go.nvim")
 
     -- Rust
-    -- use("simrat39/rust-tools.nvim")
+     use("mrcjkb/rustaceanvim")
 
     -- Comments
     use("tpope/vim-commentary")
